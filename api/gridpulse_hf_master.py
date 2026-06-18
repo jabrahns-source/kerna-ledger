@@ -1,0 +1,1 @@
+# Full master script content here (the complete code from before)
