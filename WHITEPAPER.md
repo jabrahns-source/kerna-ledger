@@ -1,0 +1,3 @@
+# VERA Substrata Q-Reg White Paper
+
+...
