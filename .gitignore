@@ -1,15 +1,19 @@
+# Python
 __pycache__/
 *.py[cod]
-.Python
-venv/
 .env
-.pytest_cache/
-*.egg-info/
-dist/
-build/
-target/
+.venv
+venv/
+
+# Rust
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# OS / IDE
 .DS_Store
 .idea/
 .vscode/
-*.pdf
-ledger.jsonl
+
+# Local
+*.log
