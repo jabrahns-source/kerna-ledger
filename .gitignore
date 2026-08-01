@@ -1,19 +1,59 @@
 # Python
 __pycache__/
 *.py[cod]
-.env
-.venv
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
 venv/
+ENV/
 
 # Rust
 /target/
 **/*.rs.bk
 Cargo.lock
 
-# OS / IDE
-.DS_Store
+# IDE / OS
 .idea/
 .vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
 
-# Local
-*.log
+# Local env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Build artifacts / caches
+*.o
+*.a
+*.out
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Jupyter
+.ipynb_checkpoints/

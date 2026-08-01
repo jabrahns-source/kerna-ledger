@@ -1,3 +1,13 @@
 [package]
 name = "kerna-ledger-daemon"
-...
+version = "0.1.0"
+edition = "2021"
+authors = ["Jacarri Sanders <Even The Odds Foundry>"]
+description = "Umbrella daemon skeleton for Kerna-Ledger (canonical engine lives in Q-Reg)"
+license = "MIT"
+repository = "https://github.com/jabrahns-source/kerna-ledger"
+
+[dependencies]
+# Intentionally minimal. Full runtime + gRPC surface is maintained in
+# https://github.com/jabrahns-source/Q-Reg (runtime/)
+# Add tonic, tokio, etc. only when this crate becomes the active binary.
