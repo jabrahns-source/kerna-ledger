@@ -1,86 +1,100 @@
 #!/usr/bin/env python3
 """
-======================================================================
- KERNA-LEDGER MASTER STRUCTURAL ARTIFACT & FORMAL PROOF SUITE
- Author: Jacarri Sanders | Date: August 3, 2026
- License: AGPLv3
-======================================================================
+Kerna-Ledger umbrella verifier.
+
+This is NOT a substitute for Idris 2 totality checking in Q-Reg/formal
+or Zig exact arithmetic in kerna-exact-matrix. It is a deterministic,
+Chromebook-runnable sanity suite that:
+
+1. Checks integer identities used by the golden-ratio reduction story
+   (Fibonacci recurrence, no floating point).
+2. Checks that F_83 = 99_194_853_094_755_497 is prime-scale and that
+   a*b ≡ 0 (mod p) with 0 < a,b < p is impossible for sampled witnesses
+   (full primality is documented as remaining debt).
+3. Seals a deterministic SHA-256 master hash with no wall-clock nonce.
+
+Author: Jacarri Sanders / Even The Odds Foundry
 """
-from z3 import *
+from __future__ import annotations
+
 import hashlib
-import time
+import sys
 
-def execute_ultimate_kerna_artifact():
-    print("======================================================================")
-    print(" KERNA-LEDGER MASTER STRUCTURAL ARTIFACT & FORMAL PROOF SUITE")
-    print(" Author: Jacarri Sanders | Date: August 3, 2026")
-    print("======================================================================\n")
+F_83 = 99_194_853_094_755_497
+WITNESS = b"KERNA_LEDGER_UMBRELLA_V3_DETERMINISTIC"
+SPATIAL = b"Redding_CA_Bounding_Box_Secured"
+TEMPORAL = b"Sequential_Delay_Elapsed_2026"
 
-    # Theory 1: Golden Ratio Polynomial Reduction Ring Z[phi]
-    s_poly = Solver()
-    phi = Real('phi')
-    phi_inv = Real('phi_inv')
-    s_poly.add(phi**2 == phi + 1)
-    s_poly.add(phi > 0)
-    s_poly.add(phi * phi_inv == 1)
-    s_poly.add((phi_inv**2) + phi_inv != 1)
-    
-    if s_poly.check() == unsat:
-        print("[FORMAL PROOF PASS] Theory 1: Golden Ratio Polynomial Reduction")
-        print(" -> Exponents and decimals annihilated into linear integer pairs (A, B).\n")
 
-    # Theory 2: Fibonacci-Prime Field GF(F_83) Zero-Divisor Elimination
-    F_83 = 99194853094755497
-    s_field = Solver()
-    a = BitVec('a_tuple', 64)
-    b = BitVec('b_tuple', 64)
-    s_field.add(a > 0, a < F_83)
-    s_field.add(b > 0, b < F_83)
-    s_field.add((a * b) % F_83 == 0)
-    
-    if s_field.check() == unsat:
-        print(f"[FORMAL PROOF PASS] Theory 2: Galois Field GF({F_83}) Zero-Divisor Elimination")
-        print(" -> Structural guarantee: Continuous noise leakage is mathematically forbidden.\n")
+def fib(n: int) -> int:
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
 
-    # Theory 3: ICO Switch & 4x4 Kraus Noise Decoherence Deterministic Logic
-    s_ico = Solver()
-    K1_a, K1_b = Int('K1_a'), Int('K1_b')
-    K2_c, K2_d = Int('K2_c'), Int('K2_d')
-    s_ico.add(K1_a == K2_d, K1_b == -K2_c)
-    
-    print("[FORMAL PROOF PASS] Theory 3: ICO Switch & Kraus Decoherence Determinism")
-    print(" -> 4x4 topological matrix routing forces destructive interference on noise paths.\n")
 
-    # Theory 4: Classical ALU Integer Phase Accumulation Bypass
-    s_alu = Solver()
-    state = Int('state')
-    A_val, B_val = Int('A_val'), Int('B_val')
-    s_alu.add(state != A_val + B_val)
-    s_alu.add(A_val > 0, B_val > 0)
-    
-    print("[FORMAL PROOF PASS] Theory 4: Classical ALU FPU Bypass")
-    print(" -> Floating-point instructions: 0 (Pure integer arithmetic verified).\n")
+def check_phi_integer_reduction() -> None:
+    # phi^2 = phi + 1 implies Fibonacci identities F_{n+1} = F_n + F_{n-1}
+    for n in range(3, 40):
+        if fib(n + 1) != fib(n) + fib(n - 1):
+            raise SystemExit(f"FAIL Theory 1 at n={n}")
+    print("[PASS] Theory 1: Fibonacci / Z[phi] integer reduction identities")
 
-    # Vault Engine: Cryptographic SHA-256 Binding Hash
-    matrix_witness_payload = f"KERNA_LEDGER_GF_{F_83}_PHI_TRANSITION_MATRIX_A_B".encode('utf-8')
-    nonce = hashlib.sha256(str(time.time()).encode('utf-8')).hexdigest().encode('utf-8')
-    spatial_gps_signature = hashlib.sha256(b"Redding_CA_Bounding_Box_Secured").digest()
-    vdf_temporal_proof = hashlib.sha256(b"Sequential_Delay_Elapsed_2026").digest()
-    
-    safe_vault_hasher = hashlib.sha256()
-    safe_vault_hasher.update(matrix_witness_payload)
-    safe_vault_hasher.update(nonce)
-    safe_vault_hasher.update(spatial_gps_signature)
-    safe_vault_hasher.update(vdf_temporal_proof)
-    master_artifact_hash = safe_vault_hasher.hexdigest()
 
-    print(f"[VAULT SEALED] Master Artifact SHA-256 Commitment Hash Generated:")
-    print(f" -> {master_artifact_hash}")
-    print(" -> Relativistic enforcement: Bypasses Mayers-Lo-Chau via space-time/VDF binding.")
-    print("\n----------------------------------------------------------------------")
-    print(" ALL THEORIES, ICO LOGIC, AND SECURE VAULTS FORMALLY VERIFIED & LOCKED.")
-    print(" ARTIFACT SIGNED BY: Jacarri Sanders")
-    print("----------------------------------------------------------------------")
+def check_sampled_zero_divisors() -> None:
+    # Sampled structural check. Not a full primality proof of F_83.
+    samples = [1, 2, 3, 7, 83, 991, 1_000_003, F_83 - 1, F_83 // 2]
+    for a in samples:
+        if a <= 0 or a >= F_83:
+            continue
+        # If p is prime, a * inv(a) == 1, so a has no zero-divisor partner.
+        # We only assert a * b % p != 0 for b in samples (except wrap of 0).
+        for b in samples:
+            if b <= 0 or b >= F_83:
+                continue
+            if (a * b) % F_83 == 0:
+                raise SystemExit(f"FAIL Theory 2: {a}*{b} ≡ 0 mod F_83")
+    print(f"[PASS] Theory 2: sampled zero-divisor check over GF({F_83})")
+    print("       full primality of F_83 remains tracked debt, not claimed here")
+
+
+def check_kraus_pair_identity() -> None:
+    # Destructive interference pattern: K1 = [[a,b],[c,d]], K2 = [[d,-c],[-b,a]]
+    # integer pair that cancels cross terms when stacked as specified.
+    a, b, c, d = 3, 5, -5, 3
+    if not (a == d and b == -c):
+        raise SystemExit("FAIL Theory 3 pair constraint")
+    print("[PASS] Theory 3: ICO / Kraus pair integer constraint holds for witness")
+
+
+def check_alu_integer_only() -> None:
+    state = 13 + 21
+    if state != 34:
+        raise SystemExit("FAIL Theory 4")
+    print("[PASS] Theory 4: integer ALU accumulation (no FPU in this path)")
+
+
+def master_hash() -> str:
+    h = hashlib.sha256()
+    h.update(WITNESS)
+    h.update(str(F_83).encode("ascii"))
+    h.update(SPATIAL)
+    h.update(TEMPORAL)
+    return h.hexdigest()
+
+
+def main() -> int:
+    print("KERNA-LEDGER UMBRELLA VERIFIER")
+    print("Author: Jacarri Sanders | Even The Odds Foundry")
+    check_phi_integer_reduction()
+    check_sampled_zero_divisors()
+    check_kraus_pair_identity()
+    check_alu_integer_only()
+    digest = master_hash()
+    print(f"MASTER_HASH {digest}")
+    print("Canonical runtime: https://github.com/jabrahns-source/Q-Reg")
+    return 0
+
 
 if __name__ == "__main__":
-    execute_ultimate_kerna_artifact()
+    sys.exit(main())

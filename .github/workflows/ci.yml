@@ -1,0 +1,35 @@
+name: Kerna-Ledger CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  python-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test deps
+        run: pip install pytest
+      - name: Run deterministic verifier
+        run: python kerna_verify.py
+      - name: Unit tests
+        run: python -m pytest tests/ -q
+      - name: No committed build artifacts
+        run: |
+          ! find . -type d \( -name target -o -name node_modules -o -name __pycache__ -o -name dist \) | grep .
+          ! find . -name '*.pyc' | grep .
+
+  rust-skeleton:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: cargo check umbrella daemon
+        run: cargo check --locked=false
