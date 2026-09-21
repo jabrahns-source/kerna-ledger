@@ -1,4 +1,4 @@
-# Kerna-Ledger Status (2026-09-17)
+# Kerna-Ledger Status (2026-09-21)
 
 This repository is the **stable citation and index root** for the Kerna-Ledger / VERA family.
 
@@ -29,12 +29,12 @@ This repository is the **stable citation and index root** for the Kerna-Ledger /
 - `qreg_engine.py`, `api/gridpulse_hf_master.py` redirect to Q-Reg / GridPulse.
 - Duplicating the engine here would create divergence. Do not expand those files into a second runtime.
 
-## Health notes (2026-09-17)
+## Health notes (2026-09-21)
 
-- 24 owner repos audited. **Zero** committed `target/`, `node_modules/`, `__pycache__`, `.pyc`, or `dist/`.
+- 25 owner repos audited. **Zero** committed `target/`, `node_modules/`, `__pycache__`, `.pyc`, or `dist/` on core protocol trees.
 - No raw placeholder notes ("API spec" / "Full updated...") remain as sole file content.
-- See `HEALTH_AUDIT_2026-09-17.md` for the full matrix.
+- See `HEALTH_AUDIT_2026-09-21.md` for the full matrix.
 - Archive candidates unchanged: `cyberpunk-web-daw`, `qreg-scratch-ci-test`.
-- Remaining debt: Idris2 CI replay, GitHub license-API detection, historical notebook name, stale issue sweep, CAISO live ingest.
+- Remaining debt: Idris2/Coq CI replay, GitHub license-API detection, historical notebook name, stale issue sweep, CAISO live ingest, `Kerna_Vera_VCI/.vercel` index purge.
 
 Even The Odds Foundry — zero stochastic drift.
