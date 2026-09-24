@@ -1,4 +1,4 @@
-# Kerna-Ledger Status (2026-09-23)
+# Kerna-Ledger Status (2026-09-24)
 
 This repository is the **stable citation and index root** for the Kerna-Ledger / VERA family.
 
@@ -29,12 +29,12 @@ This repository is the **stable citation and index root** for the Kerna-Ledger /
 - `qreg_engine.py`, `api/gridpulse_hf_master.py` redirect to Q-Reg / GridPulse.
 - Duplicating the engine here would create divergence. Do not expand those files into a second runtime.
 
-## Health notes (2026-09-23)
+## Health notes (2026-09-24)
 
 - 25 owner repos audited. **Zero** committed `target/`, `node_modules/`, `__pycache__`, `.pyc`, or `dist/` on core protocol trees.
-- Core HEAD SHAs unchanged versus 2026-09-22 (Q-Reg `646e0050`, vci `fe098e26`, vera-enterprise-engine `953fe04a`, phi `a2f36721`, GridPulse `eac7270d`, aethersound `6799710d`, psi-alpha-quantum `ebedd44b`, kerna-denali `bada1956`).
+- Core HEAD SHAs unchanged versus 2026-09-23 (Q-Reg `646e0050`, vci `fe098e26`, vera-enterprise-engine `953fe04a`, phi `a2f36721`, GridPulse `eac7270d`, aethersound `6799710d`, psi-alpha-quantum `ebedd44b`).
 - No raw placeholder notes ("API spec" / "Full updated...") remain as sole file content.
-- See `HEALTH_AUDIT_2026-09-23.md` for the full matrix.
+- See `HEALTH_AUDIT_2026-09-24.md` for the full matrix.
 - Archive candidates unchanged: `cyberpunk-web-daw`, `qreg-scratch-ci-test`.
 - Remaining debt: Idris2/Coq CI replay, GitHub license-API detection, historical notebook name, stale issue sweep, CAISO live ingest, `Kerna_Vera_VCI/.vercel` index purge.
 
