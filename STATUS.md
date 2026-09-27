@@ -1,4 +1,4 @@
-# Kerna-Ledger Status (2026-09-26)
+# Kerna-Ledger Status (2026-09-27)
 
 This repository is the **stable citation and index root** for the Kerna-Ledger / VERA family.
 
@@ -29,14 +29,14 @@ This repository is the **stable citation and index root** for the Kerna-Ledger /
 - `qreg_engine.py`, `api/gridpulse_hf_master.py` redirect to Q-Reg / GridPulse.
 - Duplicating the engine here would create divergence. Do not expand those files into a second runtime.
 
-## Health notes (2026-09-26)
+## Health notes (2026-09-27)
 
 - 25 owner repos audited (`user:jabrahns-source`, total_count=25).
-- Core protocol trees unchanged vs 2026-09-25: Q-Reg `646e0050`, kerna-ledger-vci `fe098e26`, vera-enterprise-engine `953fe04a`, phi `a2f36721`, GridPulse `eac7270d`, aethersound `6799710d`, psi-alpha-quantum `ebedd44b`.
+- Core protocol trees unchanged vs 2026-09-26: Q-Reg `646e0050`, kerna-ledger-vci `fe098e26`, vera-enterprise-engine `953fe04a`, phi `a2f36721`, GridPulse `eac7270d`, aethersound `6799710d`, psi-alpha-quantum `ebedd44b`.
 - Zero committed `target/`, `node_modules/`, `__pycache__`, `.pyc`, or `dist/` on core protocol trees.
-- `Kerna_Vera_VCI` still tracks **62** `.vercel/output/**` blobs. `.gitignore` already excludes `.vercel/`. Contents API cannot cheaply unindex the tree; local `git rm -r --cached .vercel` remains required.
-- Redirect stubs re-read and confirmed as `SystemExit` / 301 pointers, not incomplete notes.
+- `Kerna_Vera_VCI` still tracks `.vercel/` from the original scaffold. `.gitignore` already excludes `.vercel/`. Contents API cannot cheaply unindex the tree; local `git rm -r --cached .vercel` remains required.
+- Redirect stubs re-read and confirmed as `SystemExit` pointers, not incomplete notes.
 - Archive candidates unchanged: `cyberpunk-web-daw`, `qreg-scratch-ci-test`.
-- See `HEALTH_AUDIT_2026-09-26.md`.
+- See `HEALTH_AUDIT_2026-09-27.md`.
 
 Even The Odds Foundry — zero stochastic drift.
