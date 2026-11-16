@@ -1,4 +1,4 @@
-# Kerna-Ledger Status (2026-09-27)
+# Kerna-Ledger Status (2026-11-16)
 
 This repository is the **stable citation and index root** for the Kerna-Ledger / VERA family.
 
@@ -29,14 +29,14 @@ This repository is the **stable citation and index root** for the Kerna-Ledger /
 - `qreg_engine.py`, `api/gridpulse_hf_master.py` redirect to Q-Reg / GridPulse.
 - Duplicating the engine here would create divergence. Do not expand those files into a second runtime.
 
-## Health notes (2026-09-27)
+## Health notes (2026-11-16)
 
-- 25 owner repos audited (`user:jabrahns-source`, total_count=25).
-- Core protocol trees unchanged vs 2026-09-26: Q-Reg `646e0050`, kerna-ledger-vci `fe098e26`, vera-enterprise-engine `953fe04a`, phi `a2f36721`, GridPulse `eac7270d`, aethersound `6799710d`, psi-alpha-quantum `ebedd44b`.
-- Zero committed `target/`, `node_modules/`, `__pycache__`, `.pyc`, or `dist/` on core protocol trees.
-- `Kerna_Vera_VCI` still tracks `.vercel/` from the original scaffold. `.gitignore` already excludes `.vercel/`. Contents API cannot cheaply unindex the tree; local `git rm -r --cached .vercel` remains required.
-- Redirect stubs re-read and confirmed as `SystemExit` pointers, not incomplete notes.
-- Archive candidates unchanged: `cyberpunk-web-daw`, `qreg-scratch-ci-test`.
-- See `HEALTH_AUDIT_2026-09-27.md`.
+- 28 owner repos audited (`user:jabrahns-source`, total_count=28).
+- Core protocol trees healthy: Q-Reg, kerna-ledger, kerna-ledger-vci, vera-enterprise-engine, phi-boundary-commitments, GridPulse, aethersound, psi-alpha-quantum, denali-* all have CI, LICENSE, README with usage, tests, .gitignore, no committed build artifacts (target/, node_modules/, __pycache__, .pyc, dist/).
+- No incomplete/placeholder files <200B that are mere notes; small files are intentional (SPDX, redirects, LICENSE headers).
+- Redirect stubs confirmed as SystemExit pointers.
+- Archive candidates: `cyberpunk-web-daw` (ARCHIVE.md present, no source), `qreg-scratch-ci-test` (scratch with ARCHIVE.md).
+- Residual debt: GitHub License API NOASSERTION on some repos despite on-disk LICENSE; optional Idris2 totality CI in Q-Reg; pin claims to benchmark harness; .vercel or .grok scaffolding in Kerna_Vera_VCI may need cleanup if not intentional.
+- Zero stochastic drift. Portfolio green for deterministic Kerna/VERA principles.
 
 Even The Odds Foundry — zero stochastic drift.
